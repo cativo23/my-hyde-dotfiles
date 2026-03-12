@@ -23,7 +23,6 @@ github-cli
 google-chrome
 grub
 insomnia-bin
-iwd
 jetbrains-toolbox
 kwalletmanager
 kwallet-pam
@@ -40,11 +39,9 @@ obs-studio
 ollama
 ollama-cuda
 opencode-bin
-openrgb
 os-prober
 pokego-bin
 qwen-code
-redshift
 sddm-silent-theme
 sddm-theme-tokyo-night-git
 spicetify-marketplace-bin
@@ -62,4 +59,3 @@ xorg-xrandr
 yay
 yay-debug
 zram-generator
-zsh
