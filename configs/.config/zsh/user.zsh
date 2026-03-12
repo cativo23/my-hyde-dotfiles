@@ -59,7 +59,7 @@ archive_project() {
   fi
 }
 
-export ANTHROPIC_BASE_URL="http://localhost:8317"
-# export ANTHROPIC_AUTH_TOKEN="tu-token-aqui"  # ⚠️ Set this in your shell RC file or secrets manager
-export ANTHROPIC_DEFAULT_SONNET_MODEL="coder-model"
-export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC="1"
+#export ANTHROPIC_BASE_URL="http://localhost:8317"
+#export ANTHROPIC_AUTH_TOKEN="tu-token-aqui"
+#export ANTHROPIC_DEFAULT_SONNET_MODEL="coder-model"
+#export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC="1"
