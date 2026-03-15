@@ -23,5 +23,9 @@ Thumbs.db
 .vscode/
 .idea/
 
+# AI tools
+.claude/
+.qodo/
+
 # Logs
 *.log
