@@ -1,117 +1,170 @@
-# AGENTS.md
+# AGENTS.md — my-hyde-dotfiles
 
-Instructions for AI coding agents working on this HyDE dotfiles project.
+## Agent Role
 
-## Quick Start
+Dotfiles maintenance agent for HyDE (Hyprland). Specialist in shell scripting, Linux desktop configs, and Arch Linux packaging.
+
+**Mission:** Provide a reproducible HyDE desktop setup (Arch Linux + Hyprland + Waybar + Dunst + Tokyo Night) deployable on any machine with a single script.
+
+**Philosophy:** Configs survive HyDE updates. `setup.sh` is idempotent and non-destructive. User always has control (`--dry-run`, `--no-sddm`).
+
+## Key Commands
 
 ```bash
-# Run installation (installs packages, applies configs, sets up dotfiles)
+# Validate syntax
+bash -n setup.sh
+
+# Lint
+shellcheck --severity=warning setup.sh
+
+# Dry run (shows what would be done without changes)
+./setup.sh --dry-run
+
+# Full install
 ./setup.sh
 
-# Test setup is idempotent
-./setup.sh && ./setup.sh
+# Install without SDDM (no sudo needed)
+./setup.sh --no-sddm
 ```
 
 ## Project Structure
 
 ```
 my-hyde-dotfiles/
-├── configs/.config/    # HyDE preserved configs
-│   ├── zsh/            # Shell aliases and functions
-│   ├── hypr/           # Hyprland user preferences
-│   ├── kitty/          # Terminal emulator settings
-│   ├── fastfetch/      # System info display (custom logo)
-│   └── starship/       # Cross-shell prompt (TokyoNight)
-├── extras/             # Non-HyDE dotfiles
-│   ├── .gitconfig      # Git configuration
-│   └── .ssh/config     # SSH multi-account setup
-├── packages.lst        # AUR packages
-├── setup.sh            # Installation script
-├── CLAUDE.md           # Claude Code-specific config
-├── AGENTS.md           # This file (vendor-agnostic)
-└── README.md           # Human-facing documentation
+├── .github/
+│   ├── workflows/
+│   │   ├── ci.yml              # Syntax check + ShellCheck
+│   │   └── release.yml         # Auto GitHub Release on release/* → main merge
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── ISSUE_TEMPLATE/
+│       ├── bug_report.md
+│       └── config_request.md
+├── configs/
+│   ├── .config/
+│   │   ├── dunst/              # Notifications (dunst.conf + Gengar icon)
+│   │   ├── fastfetch/          # System info (custom Pokémon logo)
+│   │   ├── git/ignore          # Global gitignore
+│   │   ├── hyde/config.toml    # HyDE settings (weather, cursor, format)
+│   │   ├── hypr/
+│   │   │   ├── hyprlock.conf   # Pointer → silent-rei layout
+│   │   │   ├── hyprlock/       # Custom lock screen layouts + backgrounds
+│   │   │   └── userprefs.conf  # Keyboard, touchpad, swallowing, keyring
+│   │   ├── kitty/              # Terminal emulator
+│   │   ├── rofi/               # App launcher theme
+│   │   ├── starship/           # Prompt theme (TokyoNight)
+│   │   ├── waybar/
+│   │   │   ├── layouts/        # cyberdeck-nerv layout
+│   │   │   ├── modules/        # network, nerv, uptime, separators, claude-code
+│   │   │   ├── theme.css       # Tokyo Night @define-color variables
+│   │   │   └── user-style.css  # CSS overrides
+│   │   └── zsh/                # Shell aliases and functions
+│   └── .local/share/
+│       └── waybar/styles/      # cyberdeck-nerv.css theme
+├── extras/
+│   ├── .gitconfig              # Git configuration
+│   └── .ssh/config             # SSH multi-account
+├── packages.lst                # AUR/pacman packages
+├── setup.sh                    # Idempotent installer
+├── CHANGELOG.md                # Release notes
+├── CLAUDE.md                   # Claude Code entry point → this file
+├── AGENTS.md                   # This file (vendor-agnostic)
+└── README.md                   # Human-facing docs
 ```
 
-## Code Style
+## Code Conventions
 
 ### Shell Scripts
 
-- Use `set -euo pipefail` at the start
+- `set -euo pipefail` at the start
 - Quote all variables: `"$VAR"`
-- Use `[[ ]]` for conditionals
-- Use `$(...)` for command substitution
-- Use uppercase for environment variables, lowercase for local variables
-
-### Markdown
-
-- Use ATX-style headers (`##` not `===`)
-- Code blocks with language specifiers
-- Tables for structured data
+- `[[ ]]` for conditionals, `$(...)` for command substitution
+- UPPER_CASE for globals/constants, `local` keyword for locals
+- Functions: `log_ok()`, `log_warn()`, `log_err()`, `log_step()`
 
 ### Configuration Files
 
-- Follow existing formatting in each config directory
-- Use TokyoNight color palette consistently
+- Follow existing format in each config directory
+- Tokyo Night palette: `#1a1b26` (bg), `#c0caf5` (fg), `#7aa2f7` (blue), `#bb9af7` (purple), `#7dcfff` (cyan), `#f7768e` (red), `#ff9e64` (orange)
 - Comment non-obvious settings with `#`
 
-## Testing Instructions
+### Commits
 
-Before committing changes:
+Format: `:<gitmoji>: type(scope): description`
 
-1. Run `./setup.sh` twice to verify idempotency
-2. Check for unintended file changes: `git status`
-3. Verify no secrets are committed: `git diff --cached`
+| Type | Emoji | Code | When to use |
+|------|-------|------|-------------|
+| `feat` | :sparkles: | `:sparkles:` | New config or feature |
+| `fix` | :bug: | `:bug:` | Bug fix |
+| `docs` | :memo: | `:memo:` | Documentation only |
+| `style` | :lipstick: | `:lipstick:` | Formatting, CSS, visual changes |
+| `refactor` | :recycle: | `:recycle:` | Code restructuring |
+| `chore` | :wrench: | `:wrench:` | Tooling, CI, dependencies |
+| `fire` | :fire: | `:fire:` | Remove code or files |
+| `tada` | :tada: | `:tada:` | Initial commit or major milestone |
 
-## When Making Changes
+**Valid scopes:** `setup`, `waybar`, `hyprlock`, `dunst`, `hypr`, `kitty`, `zsh`, `starship`, `fastfetch`, `rofi`, `hyde`, `sddm`, `packages`, `readme`, `ci`, `docs`, `configs`
 
-- Output full file content when editing
-- Explain reasoning before code changes
-- Verify changes don't break existing setup
+## Boundaries
 
-## Security
+### Always
+- Run `bash -n setup.sh` before committing
+- Test with `--dry-run` after modifying `setup.sh`
+- Keep `setup.sh` idempotent (safe to run multiple times)
+- Use Tokyo Night palette for all visual configs
 
-- Never commit tokens, passwords, or SSH keys
-- All credentials must be environment variables (see `configs/.config/zsh/user.zsh` for template)
-- Reference secret storage systems, never actual secrets
+### Ask First
+- Modify `setup.sh` behavior or flags
+- Add new packages to `packages.lst`
+- Change keyboard layouts or input settings
+- Modify SDDM or login screen configuration
 
-## Commit Guidelines
+### Never
+- `git push` or create commits automatically
+- Include credentials, tokens, or SSH keys in the repo
+- Use `git push --force` or destructive operations
+- Edit HyDE-managed files that get overwritten (e.g., `~/.local/state/hyde/config`)
+- Hardcode hardware-specific values (monitor config, network interfaces in setup.sh)
 
-- Use **Gitmoji + Conventional Commits** format: `:emoji: type(scope): description`
-- `scope` is optional - use it to indicate the affected component (e.g., `zsh`, `kitty`, `setup`)
-- Run `./setup.sh` before committing
-- Update README.md if adding new files
+## HyDE Domain Knowledge
 
-### Gitmoji API
+### dunst
+The file dunst reads is `~/.config/dunst/dunstrc`, which is **auto-generated** by `hyde-shell wallbash dunst`. The `dunst.conf` in this repo is the user file included in the middle. After copying `dunst.conf`, always run `hyde-shell wallbash dunst`.
 
-When in doubt about which emoji to use, query the Gitmoji API:
+### config.toml
+`~/.config/hyde/config.toml` is the **only** HyDE config that survives updates. Never edit `~/.local/state/hyde/config` (gets overwritten).
 
-```bash
-curl -s https://gitmoji.dev/api/gitmojis | jq '.gitmojis[] | select(.type == "feat")'
-```
+### hyprlock
+`hyprlock.conf` is a pointer that defines `$LAYOUT_PATH`. Custom layouts go in `~/.config/hypr/hyprlock/`. HyDE regenerates the boilerplate from `~/.local/share/hyde/hyprlock.conf`.
 
-**API Response Structure:**
-```json
-{
-  "gitmojis": [
-    {
-      "emoji": "✨",
-      "entity": "&#x2728;",
-      "code": ":sparkles:",
-      "description": "Add new features.",
-      "type": "feat"
-    }
-  ]
-}
-```
+### SDDM Silent theme
+Installed via `setup.sh` from [SilentSDDM](https://github.com/uiriansan/SilentSDDM). Variant `rei` (dark + lavender). Requires sudo. Skip with `--no-sddm`.
 
-### Gitmoji Reference
+### Waybar
+Custom modules in `configs/.config/waybar/modules/` are prioritized by HyDE over defaults. Layouts in `layouts/` are selectable via `hyde-shell waybar --select`.
 
-| Type | Emoji | Code | Example |
-|------|-------|------|---------|
-| `feat` | ✨ | `:sparkles:` | `:sparkles: feat(starship): add new module` |
-| `fix` | 🐛 | `:bug:` | `:bug: fix(kitty): resolve tab issue` |
-| `docs` | 📝 | `:memo:` | `:memo: docs(readme): update setup steps` |
-| `style` | 💄 | `:lipstick:` | `:lipstick: style(config): improve formatting` |
-| `refactor` | ♻️ | `:recycle:` | `:recycle: refactor(zsh): simplify aliases` |
-| `test` | ✅ | `:white_check_mark:` | `:white_check_mark: test(setup): add idempotency check` |
-| `chore` | 🔧 | `:wrench:` | `:wrench: chore(deps): update packages.lst` |
+## Architecture
+
+- `setup.sh` is the single entry point — 5 steps executed in order
+- Configs in `configs/` mirror the `~/.config/` and `~/.local/` directory structure
+- HyDE preserved files: `dunst.conf`, `config.toml`, `userprefs.conf`, waybar `modules/` and `layouts/`
+- `extras/` contains non-HyDE dotfiles copied only if they don't already exist
+- `packages.lst` is filtered (comments, blanks, invalid names) before passing to `yay`
+
+## Versioning
+
+- Follows [Semantic Versioning](https://semver.org/)
+- `release/*` branches trigger auto GitHub Release when merged to `main`
+- `CHANGELOG.md` must have a section `## [X.Y.Z]` matching the release branch version
+- `VERSION` variable in `setup.sh` must match the release version
+
+## Machine of Origin
+
+- **Hostname:** atlas
+- **WiFi:** Realtek RTL8821CE (driver rtw88_8821ce)
+- **Location:** San Salvador, El Salvador
+
+## What's NOT Included
+
+- `hypr/monitors.conf` — hardware-specific (use `nwg-displays`)
+- Credentials and tokens — never in the repo
+- Required fonts are installed via `packages.lst`
