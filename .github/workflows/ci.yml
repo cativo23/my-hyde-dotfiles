@@ -1,0 +1,29 @@
+name: CI - Lint
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Bash syntax check
+        run: |
+          bash -n setup.sh
+          echo "All scripts pass syntax check"
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run shellcheck
+        run: |
+          shellcheck --severity=warning setup.sh

@@ -1,0 +1,44 @@
+{
+    "layer": "top",
+    "output": ["*"],
+    "height": 28,
+    "exclusive": true,
+    "passthrough": false,
+    "reload_style_on_change": true,
+    "include": [
+        "$XDG_CONFIG_HOME/waybar/modules/*json*",
+        "$XDG_CONFIG_HOME/waybar/includes/includes.json"
+    ],
+    "modules-left": [
+        "custom/nerv",
+        "custom/separator#l1",
+        "hyprland/workspaces#kanji",
+        "custom/separator#l2",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "cpu",
+        "temperature",
+        "memory",
+        "custom/gpuinfo",
+        "custom/separator#c1",
+        "custom/uptime"
+    ],
+    "modules-right": [
+        "hyprland/language",
+        "custom/separator#r1",
+        "backlight",
+        "network",
+        "pulseaudio",
+        "battery",
+        "custom/separator#r2",
+        "idle_inhibitor",
+        "custom/updates",
+        "custom/keybindhint",
+        "custom/separator#r3",
+        "custom/weather",
+        "custom/separator#r4",
+        "clock",
+        "custom/power"
+    ]
+}

@@ -1,6 +1,6 @@
 # Claude Code Project Instructions
 
-> **Follow all rules in [@./AGENTS.md](./AGENTS.md)**
+> **Strictly follow the rules in [@./AGENTS.md](./AGENTS.md)**
 
 ## Auto Memory Location
 
@@ -10,5 +10,5 @@
 
 ## Imports
 
-- [@./AGENTS.md](./AGENTS.md) - Universal agent instructions (build, test, code style, env vars)
+- [@./AGENTS.md](./AGENTS.md) - Agent conventions, boundaries, architecture, domain knowledge
 - [@./README.md](./README.md) - User-facing documentation
