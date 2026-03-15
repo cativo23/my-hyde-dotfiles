@@ -1,0 +1,304 @@
+/* CYBERDECK // NERV EDITION */
+/* Tokyo Night cyberpunk waybar theme */
+
+@import "defaults.css";
+
+/* ═══════════════════════════════════════════
+   BAR — semi-transparent with bottom glow
+   ═══════════════════════════════════════════ */
+
+window#waybar {
+    background: alpha(@bar-bg, 0.92);
+    border-bottom: 1px solid alpha(#7aa2f7, 0.25);
+    box-shadow: 0 2px 12px alpha(#7aa2f7, 0.08);
+}
+
+/* Reset all default group styling — we go flat */
+window#waybar.top #pill,
+window#waybar.bottom #pill {
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* ═══════════════════════════════════════════
+   SEPARATORS — muted pipe characters
+   ═══════════════════════════════════════════ */
+
+#custom-separator {
+    color: #414868;
+    padding: 0 2px;
+    margin: 0;
+    font-size: 10px;
+}
+
+/* ═══════════════════════════════════════════
+   LEFT — Identity zone
+   ═══════════════════════════════════════════ */
+
+/* MAGI.SYS identifier */
+#custom-nerv {
+    background: alpha(#f7768e, 0.1);
+    border: 1px solid alpha(#f7768e, 0.4);
+    border-radius: 2px;
+    padding: 0 8px;
+    margin: 3px 0;
+    color: #f7768e;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 6px alpha(#f7768e, 0.4);
+}
+
+/* Workspaces — angular kanji */
+#workspaces button {
+    border-radius: 2px;
+    padding: 0 6px;
+    margin: 3px 1px;
+    font-size: 9px;
+    color: #565f89;
+    background: alpha(#292e42, 0.8);
+    min-width: 0;
+    min-height: 0;
+}
+
+#workspaces button.active {
+    background: #7aa2f7;
+    color: #1a1b26;
+    padding: 0 6px;
+    margin: 3px 1px;
+    text-shadow: none;
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+#workspaces button:hover {
+    background: alpha(#7aa2f7, 0.4);
+    color: #c0caf5;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+#workspaces button.urgent {
+    background: alpha(#f7768e, 0.3);
+    color: #f7768e;
+}
+
+/* Window title */
+#window {
+    color: #a9b1d6;
+    font-size: 10px;
+}
+
+/* ═══════════════════════════════════════════
+   CENTER — System HUD with angular micro-pills
+   ═══════════════════════════════════════════ */
+
+/* CPU — red accent */
+#cpu {
+    background: alpha(#f7768e, 0.08);
+    border: 1px solid alpha(#f7768e, 0.2);
+    border-radius: 2px;
+    padding: 0 7px;
+    margin: 3px 1px;
+    color: #c0caf5;
+    font-size: 10px;
+}
+
+#cpu label {
+    text-shadow: 0 0 4px alpha(#f7768e, 0.3);
+}
+
+/* Temperature — orange accent */
+#temperature {
+    background: alpha(#ff9e64, 0.08);
+    border: 1px solid alpha(#ff9e64, 0.2);
+    border-radius: 2px;
+    padding: 0 7px;
+    margin: 3px 1px;
+    color: #c0caf5;
+    font-size: 10px;
+}
+
+#temperature.warning {
+    background: alpha(#ff9e64, 0.15);
+    border-color: alpha(#ff9e64, 0.4);
+    color: #ff9e64;
+}
+
+#temperature.critical {
+    background: alpha(#f7768e, 0.15);
+    border-color: alpha(#f7768e, 0.4);
+    color: #f7768e;
+}
+
+/* Memory — purple accent */
+#memory {
+    background: alpha(#bb9af7, 0.08);
+    border: 1px solid alpha(#bb9af7, 0.2);
+    border-radius: 2px;
+    padding: 0 7px;
+    margin: 3px 1px;
+    color: #c0caf5;
+    font-size: 10px;
+}
+
+/* GPU — cyan accent */
+#custom-gpuinfo {
+    background: alpha(#7dcfff, 0.08);
+    border: 1px solid alpha(#7dcfff, 0.2);
+    border-radius: 2px;
+    padding: 0 7px;
+    margin: 3px 1px;
+    color: #c0caf5;
+    font-size: 10px;
+}
+
+/* SYS.ONLINE uptime */
+#custom-uptime {
+    color: #7aa2f7;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 6px alpha(#7aa2f7, 0.3);
+    padding: 0 4px;
+}
+
+/* ═══════════════════════════════════════════
+   RIGHT — Status + Controls
+   ═══════════════════════════════════════════ */
+
+/* Keyboard layout */
+#language {
+    color: #9d7cd8;
+    font-size: 10px;
+    min-width: 1.2em;
+}
+
+/* Backlight */
+#backlight {
+    color: #e0af68;
+    font-size: 10px;
+}
+
+/* Network */
+#network {
+    color: #9ece6a;
+    font-size: 10px;
+    text-shadow: 0 0 4px alpha(#9ece6a, 0.3);
+}
+
+#network.disconnected {
+    color: #f7768e;
+    text-shadow: 0 0 4px alpha(#f7768e, 0.3);
+}
+
+/* Volume */
+#pulseaudio {
+    color: #7dcfff;
+    font-size: 10px;
+}
+
+#pulseaudio.muted {
+    color: #565f89;
+}
+
+/* Battery */
+#battery {
+    color: #9ece6a;
+    font-size: 10px;
+}
+
+#battery.charging {
+    color: #9ece6a;
+    text-shadow: 0 0 4px alpha(#9ece6a, 0.4);
+}
+
+#battery.warning:not(.charging) {
+    color: #e0af68;
+}
+
+#battery.critical:not(.charging) {
+    color: #f7768e;
+    text-shadow: 0 0 6px alpha(#f7768e, 0.5);
+    animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0.6; }
+}
+
+/* Caffeine / Idle inhibitor */
+#idle_inhibitor {
+    color: #565f89;
+    font-size: 10px;
+}
+
+#idle_inhibitor.activated {
+    color: #e0af68;
+    text-shadow: 0 0 4px alpha(#e0af68, 0.4);
+}
+
+/* Updates */
+#custom-updates {
+    color: #9ece6a;
+    font-size: 10px;
+}
+
+/* Keybinds */
+#custom-keybindhint {
+    color: #565f89;
+    font-size: 10px;
+}
+
+#custom-keybindhint:hover {
+    color: #7aa2f7;
+}
+
+/* Weather */
+#custom-weather {
+    color: #e0af68;
+    font-size: 10px;
+}
+
+/* Clock — neon glow text, no box */
+#clock {
+    color: #7aa2f7;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px alpha(#7aa2f7, 0.5);
+    padding: 0 4px;
+}
+
+/* Power button */
+#custom-power {
+    color: #f7768e;
+    font-size: 11px;
+    padding: 0 4px;
+}
+
+#custom-power:hover {
+    color: #ff007c;
+    text-shadow: 0 0 8px alpha(#ff007c, 0.6);
+}
+
+/* Claude Code */
+#custom-claude-code {
+    color: #c0caf5;
+    padding: 0 6px;
+}
+
+#custom-claude-code:hover {
+    color: #ff9e64;
+}
+
+/* ═══════════════════════════════════════════
+   TOOLTIPS — dark angular
+   ═══════════════════════════════════════════ */
+
+tooltip {
+    background: alpha(#1a1b26, 0.95);
+    color: #c0caf5;
+    border: 1px solid alpha(#7aa2f7, 0.3);
+    border-radius: 2px;
+}
