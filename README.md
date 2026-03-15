@@ -1,131 +1,158 @@
-<pre align="center">
-    __  __      ____  ______   ____        __  _____ __
-   / / / /_  __/ __ \/ ____/  / __ \____  / /_/ __(_) /__  _____
-  / /_/ / / / / / / / __/    / / / / __ \/ __/ /_/ / / _ \/ ___/
- / __  / /_/ / /_/ / /___   / /_/ / /_/ / /_/ __/ / /  __(__  )
-/_/ /_/\__, /_____/_____/  /_____/\____/\__/_/ /_/_/\___/____/
-      /____/
-</pre>
+# My HyDE Dotfiles
 
-<p align="center">
-  <img src="https://img.shields.io/badge/OS-Arch%20Linux-blue?style=for-the-badge&logo=arch-linux&logoColor=white" alt="Arch Linux">
-  <img src="https://img.shields.io/badge/DE-HyDE%20(Hyprland)-97e4e4?style=for-the-badge&logo=wayland&logoColor=black" alt="HyDE">
-  <img src="https://img.shields.io/badge/Shell-Zsh-363e44?style=for-the-badge&logo=zsh&logoColor=F15A24" alt="Shell">
-</p>
+Mis configuraciones custom de HyDE para replicar mi setup en otra máquina.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
-  <img src="https://img.shields.io/badge/Maintained-Yes-brightgreen?style=for-the-badge" alt="Maintained">
-  <img src="https://img.shields.io/badge/Idempotent-Setup-success?style=for-the-badge" alt="Idempotent Setup">
-</p>
+## Requisitos
 
----
+- Arch Linux (o derivado con `yay`)
+- HyDE instalado (`~/HyDE`)
+- zsh como shell predeterminado
 
-## Overview
-
-Personal **HyDE** (Hyprland Desktop Environment) dotfiles for replicating my setup on Arch Linux systems. Includes window manager configurations, terminal setups, and development environment presets.
-
-## Prerequisites
-
-| Requirement | Details |
-|-------------|---------|
-| **OS** | Arch Linux or Arch-based distribution |
-| **Package Manager** | `yay` (AUR helper) |
-| **Shell** | zsh |
-| **Desktop** | HyDE installed at `~/HyDE` |
-
-## Quick Start
+## Instalación rápida
 
 ```bash
-# Clone the repository
+# Clonar y ejecutar setup
 git clone https://github.com/TU-USUARIO/my-hyde-dotfiles.git ~/my-hyde-dotfiles
-
-# Navigate to the directory
 cd ~/my-hyde-dotfiles
-
-# Run the installation script
 ./setup.sh
+
+# Opciones disponibles
+./setup.sh --help       # Ver ayuda
+./setup.sh --dry-run    # Ver qué haría sin hacer cambios
+./setup.sh --no-sddm    # Omitir setup de SDDM (no requiere sudo)
 ```
 
-## Repository Structure
+## Estructura del repo
 
 ```
 my-hyde-dotfiles/
-├── configs/.config/        # HyDE preserved configurations
-│   ├── zsh/                # Shell aliases and functions
-│   ├── hypr/               # Hyprland user preferences
-│   ├── kitty/              # Terminal emulator settings
-│   ├── fastfetch/          # System info display (custom logo)
-│   └── starship/           # Cross-shell prompt (TokyoNight)
-├── extras/                 # Non-HyDE dotfiles
-│   ├── .gitconfig          # Git configuration
-│   └── .ssh/config         # SSH multi-account setup
-├── packages.lst            # Additional package list
-├── setup.sh                # Installation script
-├── CLAUDE.md               # Claude Code project instructions
-├── AGENTS.md               # Agent Skills specification
+├── configs/
+│   ├── .config/
+│   │   ├── zsh/                      # Alias y funciones personales
+│   │   ├── hypr/
+│   │   │   ├── hyprlock.conf         # Pointer → silent-rei layout
+│   │   │   ├── hyprlock/silent-rei.conf  # Lock screen custom (lavender/dark)
+│   │   │   ├── hyprlock/backgrounds/ # rei.png + profile_square.png
+│   │   │   └── userprefs.conf        # Teclado latam, touchpad, swallowing
+│   │   ├── kitty/                    # Terminal emulator config
+│   │   ├── rofi/                     # Tema personalizado
+│   │   ├── fastfetch/                # Logo y módulos custom
+│   │   ├── starship/                 # Prompt theme (TokyoNight)
+│   │   ├── hyde/config.toml          # HyDE config (clima, cursor)
+│   │   ├── dunst/                    # Notificaciones custom + Gengar icon
+│   │   ├── waybar/
+│   │   │   ├── modules/              # Módulos: network, nerv, uptime, separators, claude-code
+│   │   │   ├── layouts/              # Layout cyberdeck-nerv
+│   │   │   ├── theme.css             # Tokyo Night color definitions
+│   │   │   └── user-style.css        # CSS overrides custom
+│   │   └── git/ignore                # Git global ignore
+│   └── .local/share/waybar/styles/   # CSS del tema cyberdeck-nerv
+├── extras/
+│   ├── .gitconfig                    # Config de Git
+│   └── .ssh/config                   # SSH multi-cuenta
+├── packages.lst                      # Paquetes extra (no incluidos en HyDE)
+├── setup.sh                          # Script de instalación
 └── README.md
 ```
 
-## Configurations
+## Archivos incluidos
 
-### HyDE Preserved Files
+### Hyprland
 
-| File | Description |
-|------|-------------|
-| `zsh/user.zsh` | Navigation aliases, `mkpersonal`/`mkwork` functions, Anthropic CLI config |
-| `hypr/userprefs.conf` | Hyprland input, gestures, and misc preferences |
-| `kitty/kitty.conf` | Powerline tab bar, styled URLs |
-| `fastfetch/config.jsonc` | Custom Pokémon logo |
-| `starship/starship.toml` | Extended prompt with 40+ language modules |
+| Archivo | Descripción |
+|---------|-------------|
+| `hypr/hyprlock.conf` | Pointer al layout silent-rei |
+| `hypr/hyprlock/silent-rei.conf` | Lock screen dark + lavender (#C3C6FB), matchea SDDM Silent rei |
+| `hypr/userprefs.conf` | Teclado latam/us (Super+Space), touchpad natural scroll, window swallowing, gnome-keyring |
 
-### Additional Dotfiles
+### Waybar
 
-| File | Description |
-|------|-------------|
-| `.gitconfig` | Git user config with GitHub + Bitbucket credential helpers |
-| `.ssh/config` | SSH configuration for multiple accounts (personal/work) |
+| Archivo | Descripción |
+|---------|-------------|
+| `waybar/layouts/cyberdeck-nerv.jsonc` | Layout Tokyo Night cyberpunk — seleccionable en HyDE |
+| `waybar/modules/network.jsonc` | Network fijado a wlo1, click derecho abre nm-connection-editor |
+| `waybar/modules/custom-nerv.jsonc` | MAGI.SYS identifier con tooltip hostname/kernel/IP |
+| `waybar/modules/custom-uptime.jsonc` | SYS.ONLINE uptime display |
+| `waybar/modules/custom-separator.jsonc` | Separadores con variantes (l1, l2, c1, r1-r4) |
+| `waybar/modules/custom-claude-code.jsonc` | Módulo Claude CLI — click abre terminal con claude |
+| `waybar/theme.css` | Variables de color Tokyo Night para waybar |
+| `waybar/user-style.css` | CSS overrides custom (claude-code styling) |
+| `.local/share/waybar/styles/cyberdeck-nerv.css` | CSS del tema: micro-pills, neon glow, colores TokyoNight |
 
-## Environment Variables
+### Notificaciones
 
-After installation, add the following to your `~/.zshrc` or `~/.config/zsh/user.zsh`:
+| Archivo | Descripción |
+|---------|-------------|
+| `dunst/dunst.conf` | Brave auto-dismiss 10s, Gengar como ícono default |
+| `dunst/icons/gengar.png` | Ícono Gengar con transparencia |
+
+### Shell y Terminal
+
+| Archivo | Descripción |
+|---------|-------------|
+| `zsh/user.zsh` | Alias de navegación, funciones `mkpersonal`/`mkwork`, NVM setup |
+| `kitty/kitty.conf` | Tab bar powerline, URLs con estilo custom |
+| `starship/starship.toml` | Prompt extenso con 40+ módulos de lenguajes |
+| `fastfetch/config.jsonc` | Logo personalizado (Pokémon) |
+
+### Tema y Apariencia
+
+| Archivo | Descripción |
+|---------|-------------|
+| `hyde/config.toml` | Clima en Celsius, San Salvador, formato 24h |
+| `git/ignore` | Global gitignore (excluye .claude/settings.local.json) |
+
+### SDDM (Login Screen)
+
+El setup instala automáticamente el tema [Silent SDDM](https://github.com/uiriansan/SilentSDDM) y lo configura con la variante **rei** (dark + lavender, matchea hyprlock).
+
+### Extras (fuera de HyDE)
+
+| Archivo | Descripción |
+|---------|-------------|
+| `.gitconfig` | Usuario Git y credential helpers (GitHub + Bitbucket) |
+| `.ssh/config` | SSH multi-cuenta (personal/work para GitHub y Bitbucket) |
+
+## Variables de entorno requeridas
+
+Después de instalar, configura en tu `~/.zshrc` o `~/.config/zsh/user.zsh`:
 
 ```bash
-# Anthropic API token (required for claude-code)
-export ANTHROPIC_AUTH_TOKEN="your-token-here"
+# Token de Anthropic (requerido para claude-code)
+export ANTHROPIC_AUTH_TOKEN="tu-token-aqui"
 
-# Base URL (optional, for local proxy)
+# URL base (opcional, si usas proxy local)
 export ANTHROPIC_BASE_URL="http://localhost:8317"
 
-# Preferred model
+# Modelo preferido
 export ANTHROPIC_DEFAULT_SONNET_MODEL="claude-sonnet-4-5-20250929"
 ```
 
-> **Note:** Never commit sensitive environment variables to version control.
+## Fuentes requeridas
 
-## Excluded Files
+- **mononoki Nerd Font** — layout cyberdeck-nerv
+- **Red Hat Display** — hyprlock silent-rei
+- **CaskaydiaCove Nerd Font Mono** — kitty terminal, Qt apps
+- **JetBrainsMono Nerd Font** — waybar, hyprlock widgets
 
-The following configurations are intentionally excluded due to hardware-specific settings:
+Todas se instalan automáticamente via `packages.lst`.
 
-| File | Reason |
-|------|--------|
-| `hypr/monitors.conf` | Monitor layout (generated by `nwg-displays`) |
-| `hypr/hypridle.conf` | Idle timeouts (user-specific preferences) |
-| `waybar/config.jsonc` | Status bar layout (depends on display setup) |
+## Excluidos intencionalmente
 
-## Security
+- `hypr/monitors.conf` — específico de cada hardware (generado por `nwg-displays`)
+- `waybar/config.jsonc` — layout de waybar activo (depende del setup)
+- Credenciales, tokens, keys SSH
 
-This repository does **NOT** contain:
+## Seguridad
 
-| Excluded | Reason |
-|----------|--------|
-| Tokens / Passwords | Configured via environment variables |
-| SSH Keys | Private or public keys excluded |
-| `.env` files | Credentials excluded |
+Este repo **NO** contiene:
+- Tokens ni contraseñas hardcodeados
+- Keys SSH privadas o públicas
+- Archivos `.env` ni credenciales
 
-All sensitive configuration must be set via environment variables post-installation.
+Los tokens deben configurarse como variables de entorno después de instalar.
 
-## Updating an Existing Setup
+## Actualizar setup existente
 
 ```bash
 cd ~/my-hyde-dotfiles
@@ -133,43 +160,4 @@ git pull
 ./setup.sh
 ```
 
-The installation script is **idempotent** and safe to run multiple times.
-
-## Commit Convention
-
-This project uses **Gitmoji + Conventional Commits** for consistent commit messages:
-
-```bash
-# Format (scope is optional)
-:emoji: type(scope): description
-
-# Examples
-:sparkles: feat(starship): add new module
-:bug: fix(kitty): resolve tab rendering issue
-:memo: docs(readme): update installation steps
-:recycle: refactor(zsh): simplify aliases
-:white_check_mark: test(setup): add script tests
-:wrench: chore(deps): update packages.lst
-```
-
-| Type | Emoji | Code | Description |
-|------|-------|------|-------------|
-| Feature | ✨ | `:sparkles:` | New functionality |
-| Fix | 🐛 | `:bug:` | Bug fixes |
-| Docs | 📝 | `:memo:` | Documentation changes |
-| Style | 💄 | `:lipstick:` | UI/formatting updates |
-| Refactor | ♻️ | `:recycle:` | Code restructuring |
-| Test | ✅ | `:white_check_mark:` | Adding tests |
-| Chore | 🔧 | `:wrench:` | Maintenance tasks |
-
-> **Note:** AI agents should follow this convention automatically when making commits.
-
-## License
-
-This project is provided as-is for personal reference. Feel free to adapt configurations for your own setup.
-
-## Acknowledgments
-
-- [**HyDE**](https://github.com/HyDE-Project/HyDE) - Hyprland Desktop Environment
-- [**TokyoNight**](https://github.com/enkia/tokyonight.nvim) - Color scheme
-- [**Starship**](https://starship.rs/) - Cross-shell prompt
+El script es idempotente: puedes ejecutarlo múltiples veces sin riesgo.
