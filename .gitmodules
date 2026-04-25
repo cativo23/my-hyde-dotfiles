@@ -1,0 +1,3 @@
+[submodule "configs/.config/hyde/themes/Tokyo Night/wallpapers"]
+	path = configs/.config/hyde/themes/Tokyo Night/wallpapers
+	url = https://github.com/cativo23/wallpapers.git

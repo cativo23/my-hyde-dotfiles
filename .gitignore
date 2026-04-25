@@ -1,0 +1,38 @@
+# Secrets and credentials
+*.key
+*.pem
+id_rsa*
+id_ed25519*
+id_ecdsa*
+*.p12
+*.pfx
+.env
+.env.*
+*.secret
+*password*
+*.token
+*.token.*
+token.env
+.env.token
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# AI tools
+.claude/
+.qodo/
+
+# Machine-specific zsh overrides (tokens, env vars, per-machine settings)
+configs/.config/zsh/user.local.zsh
+
+# Logs
+*.log
+.superpowers/

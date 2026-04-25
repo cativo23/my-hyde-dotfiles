@@ -1,0 +1,60 @@
+# ─── Browsers ────────────────────────────────────────────────────────────────
+brave-bin
+google-chrome
+
+# ─── Terminals & Editors ─────────────────────────────────────────────────────
+ghostty
+nano
+visual-studio-code-bin
+cursor-bin
+jetbrains-toolbox
+
+# ─── AI Tools ────────────────────────────────────────────────────────────────
+claude-code
+opencode-bin
+qwen-code
+waybar-claude-code-bin
+
+# ─── Dev Tools ───────────────────────────────────────────────────────────────
+docker
+docker-buildx
+docker-compose
+github-cli
+wget
+
+# ─── Shell & CLI ─────────────────────────────────────────────────────────────
+antigravity
+bashtop
+figlet
+thefuck
+
+# ─── Media ───────────────────────────────────────────────────────────────────
+mpv
+obs-studio
+spicetify-marketplace-bin
+
+# ─── Desktop & Theming ───────────────────────────────────────────────────────
+eww
+phinger-cursors
+qt6-virtualkeyboard
+
+# ─── Fonts ───────────────────────────────────────────────────────────────────
+redhat-fonts
+ttf-all-the-icons
+ttf-icomoon-feather
+ttf-jetbrains-mono
+ttf-mononoki-nerd
+ttf-remixicon
+woff2-font-awesome
+
+# ─── Networking ──────────────────────────────────────────────────────────────
+cloudflared
+wireless_tools
+
+# ─── System (already on any Arch install, kept for completeness) ─────────────
+# base
+# base-devel
+# linux
+# linux-firmware
+# linux-headers
+os-prober
